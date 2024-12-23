@@ -3374,11 +3374,6 @@
             </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-test-openshift-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-test-amazon-lambda</artifactId>
                 <version>${project.version}</version>
             </dependency>
