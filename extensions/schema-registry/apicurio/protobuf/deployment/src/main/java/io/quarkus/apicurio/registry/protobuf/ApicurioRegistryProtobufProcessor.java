@@ -1,6 +1,5 @@
 package io.quarkus.apicurio.registry.protobuf;
 
-import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.Feature;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -26,18 +25,11 @@ public class ApicurioRegistryProtobufProcessor {
                 "io.apicurio.registry.serde.strategy.TopicIdStrategy").methods().fields()
                 .build());
 
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder("io.apicurio.registry.serde.DefaultIdHandler",
-                "io.apicurio.registry.serde.Legacy4ByteIdHandler",
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder("io.apicurio.registry.serde.Default4ByteIdHandler",
+                "io.apicurio.registry.serde.Legacy8ByteIdHandler",
                 "io.apicurio.registry.serde.fallback.DefaultFallbackArtifactProvider",
                 "io.apicurio.registry.serde.headers.DefaultHeadersHandler").methods().fields()
                 .build());
-
-        String defaultSchemaResolver = "io.apicurio.registry.serde.DefaultSchemaResolver";
-        if (QuarkusClassLoader.isClassPresentAtRuntime(defaultSchemaResolver)) {
-            // Class not present after 2.2.0.Final
-            reflectiveClass.produce(ReflectiveClassBuildItem.builder(defaultSchemaResolver).methods()
-                    .fields().build());
-        }
     }
 
     @BuildStep

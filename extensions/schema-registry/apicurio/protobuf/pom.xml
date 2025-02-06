@@ -17,9 +17,9 @@
    <dependencyManagement>
       <dependencies>
          <dependency>
-            <artifactId>kotlinx-serialization-core-jvm</artifactId>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <version>1.6.1</version>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio-jvm</artifactId>
+            <version>3.10.2</version>
          </dependency>
       </dependencies>
    </dependencyManagement>

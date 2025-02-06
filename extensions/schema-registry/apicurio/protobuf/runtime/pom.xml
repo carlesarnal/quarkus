@@ -17,12 +17,8 @@
     <dependencies>
         <dependency>
             <groupId>io.apicurio</groupId>
-            <artifactId>apicurio-registry-serdes-protobuf-serde</artifactId>
+            <artifactId>apicurio-registry-protobuf-serde-kafka</artifactId>
             <exclusions>
-                <exclusion>
-                    <groupId>io.apicurio</groupId>
-                    <artifactId>apicurio-common-rest-client-jdk</artifactId>
-                </exclusion>
                 <exclusion>
                     <artifactId>checker-qual</artifactId>
                     <groupId>org.checkerframework</groupId>
@@ -30,10 +26,6 @@
                 <exclusion>
                     <artifactId>slf4j-jboss-logging</artifactId>
                     <groupId>org.jboss.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>okhttp</artifactId>
-                    <groupId>com.squareup.okhttp3</groupId>
                 </exclusion>
             </exclusions>
         </dependency>

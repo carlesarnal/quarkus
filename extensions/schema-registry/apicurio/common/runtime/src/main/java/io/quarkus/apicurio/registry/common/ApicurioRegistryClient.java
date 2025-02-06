@@ -24,7 +24,9 @@ public class ApicurioRegistryClient {
             Field providerReference = AbstractSchemaResolver.class.getDeclaredField("vertx");
             providerReference.setAccessible(true);
             AtomicReference ref = (AtomicReference) providerReference.get(null);
-            ref.set(null);
+            if (ref != null) {
+                ref.set(null);
+            }
         } catch (NoSuchFieldException | IllegalAccessException t) {
             log.error("Failed to clear Apicurio Http Client provider", t);
         }

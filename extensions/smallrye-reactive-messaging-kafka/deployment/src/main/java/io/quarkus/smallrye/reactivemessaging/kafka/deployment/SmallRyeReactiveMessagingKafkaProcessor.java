@@ -952,8 +952,7 @@ public class SmallRyeReactiveMessagingKafkaProcessor {
         if (isAvroGenerated || DotNames.AVRO_GENERIC_RECORD.equals(typeName)) {
             int avroLibraries = 0;
             avroLibraries += discovery.hasConfluent() ? 1 : 0;
-            avroLibraries += discovery.hasApicurio1() ? 1 : 0;
-            avroLibraries += discovery.hasApicurio2Avro() ? 1 : 0;
+            avroLibraries += discovery.hasApicurioAvro() ? 1 : 0;
             if (avroLibraries > 1) {
                 LOGGER.debugf("Skipping Avro serde autodetection for %s, because multiple Avro serde libraries are present",
                         typeName);
@@ -965,12 +964,7 @@ public class SmallRyeReactiveMessagingKafkaProcessor {
                         ? Result.of("io.confluent.kafka.serializers.KafkaAvroSerializer")
                         : Result.of("io.confluent.kafka.serializers.KafkaAvroDeserializer")
                                 .with(isAvroGenerated, "specific.avro.reader", "true");
-            } else if (discovery.hasApicurio1()) {
-                return serializer
-                        ? Result.of("io.apicurio.registry.utils.serde.AvroKafkaSerializer")
-                        : Result.of("io.apicurio.registry.utils.serde.AvroKafkaDeserializer")
-                                .with(isAvroGenerated, "apicurio.registry.use-specific-avro-reader", "true");
-            } else if (discovery.hasApicurio2Avro()) {
+            } else if (discovery.hasApicurioAvro()) {
                 return serializer
                         ? Result.of("io.apicurio.registry.serde.avro.AvroKafkaSerializer")
                         : Result.of("io.apicurio.registry.serde.avro.AvroKafkaDeserializer")
