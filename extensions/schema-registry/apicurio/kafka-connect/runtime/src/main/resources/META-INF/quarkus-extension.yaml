@@ -1,0 +1,13 @@
+---
+artifact: ${project.groupId}:${project.artifactId}:${project.version}
+name: "Apicurio Registry - Kafka Connect"
+metadata:
+  keywords:
+  - "apicurio"
+  - "kafka-connect"
+  - "debezium"
+  - "converter"
+  guide: "https://quarkus.io/guides/apicurio-registry-dev-services"
+  categories:
+  - "serialization"
+  status: "experimental"

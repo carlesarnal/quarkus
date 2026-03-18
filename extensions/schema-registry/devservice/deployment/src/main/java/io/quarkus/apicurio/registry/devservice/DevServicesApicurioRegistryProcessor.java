@@ -44,6 +44,7 @@ public class DevServicesApicurioRegistryProcessor {
     private static final int APICURIO_REGISTRY_PORT = 8080; // inside the container
     private static final String APICURIO_REGISTRY_URL_CONFIG = "mp.messaging.connector.smallrye-kafka.apicurio.registry.url";
     private static final String CONFLUENT_SCHEMA_REGISTRY_URL_CONFIG = "mp.messaging.connector.smallrye-kafka.schema.registry.url";
+    private static final String KAFKA_CONNECT_REGISTRY_URL_CONFIG = "quarkus.apicurio-registry.kafka-connect.registry-url";
 
     /**
      * Label to add to shared Dev Service for Apicurio Registry running in containers.
@@ -71,7 +72,8 @@ public class DevServicesApicurioRegistryProcessor {
     private Map<String, String> getRegistryUrlConfigs(String baseUrl) {
         return Map.of(
                 APICURIO_REGISTRY_URL_CONFIG, baseUrl + "/apis/registry/v3",
-                CONFLUENT_SCHEMA_REGISTRY_URL_CONFIG, baseUrl + "/apis/ccompat/v7");
+                CONFLUENT_SCHEMA_REGISTRY_URL_CONFIG, baseUrl + "/apis/ccompat/v7",
+                KAFKA_CONNECT_REGISTRY_URL_CONFIG, baseUrl + "/apis/registry/v3");
     }
 
     private DevServicesResultBuildItem prepareApicurioRegistry(DockerStatusBuildItem dockerStatusBuildItem,
@@ -132,7 +134,8 @@ public class DevServicesApicurioRegistryProcessor {
                                 timeout))
                         .configProvider(Map.of(
                                 APICURIO_REGISTRY_URL_CONFIG, ApicurioRegistryContainer::getApicurioRegistryUrl,
-                                CONFLUENT_SCHEMA_REGISTRY_URL_CONFIG, ApicurioRegistryContainer::getConfluentRegistryUrl))
+                                CONFLUENT_SCHEMA_REGISTRY_URL_CONFIG, ApicurioRegistryContainer::getConfluentRegistryUrl,
+                                KAFKA_CONNECT_REGISTRY_URL_CONFIG, ApicurioRegistryContainer::getApicurioRegistryUrl))
                         .postStartHook(
                                 s -> log.infof("Dev Services for Apicurio Registry started. The registry is available at %s",
                                         s.getApicurioRegistryUrl()))

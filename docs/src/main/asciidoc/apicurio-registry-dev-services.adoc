@@ -80,6 +80,40 @@ You can select any 3.x version from https://hub.docker.com/r/apicurio/apicurio-r
 quarkus.apicurio-registry.devservices.image-name=apicurio/apicurio-registry:latest-snapshot
 ----
 
+== Kafka Connect / Debezium integration
+
+If you use Kafka Connect with Apicurio Registry converters (for example, with Debezium), you can add the `quarkus-apicurio-registry-kafka-connect` extension:
+
+[source,xml,role="primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven"]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-apicurio-registry-kafka-connect</artifactId>
+</dependency>
+----
+
+This extension provides GraalVM native image support for the Apicurio Registry Kafka Connect converters (`AvroConverter`, `ExtJsonConverter`, `SerdeBasedConverter`).
+
+When Dev Services for Apicurio Registry is active, the registry URL is also exposed as `quarkus.apicurio-registry.kafka-connect.registry-url`, which you can use to configure your Kafka Connect converters:
+
+[source,properties]
+----
+# Auto-populated by Dev Services
+quarkus.apicurio-registry.kafka-connect.registry-url=http://localhost:8081/apis/registry/v3
+----
+
+For production use, configure the Apicurio Registry Kafka Connect converters in your connector configuration:
+
+[source,properties]
+----
+key.converter=io.apicurio.registry.utils.converter.AvroConverter
+key.converter.apicurio.registry.url=http://my-registry:8080/apis/registry/v3
+key.converter.apicurio.registry.auto-register=true
+value.converter=io.apicurio.registry.utils.converter.AvroConverter
+value.converter.apicurio.registry.url=http://my-registry:8080/apis/registry/v3
+value.converter.apicurio.registry.auto-register=true
+----
+
 [[Compose]]
 == Compose
 
